@@ -1,0 +1,16 @@
+# dsh-plugin-seo-auditor — capa bundle de DSH.
+# Inserta una fila @deepseek-ai/dsh-mcp-client que lanza el servidor como "seo".
+# Tools resultantes: mcp__seo__* (ver README).
+- insert:
+    - id: mcp-seo-auditor
+      name: '@deepseek-ai/dsh-mcp-client'
+      config:
+        serverName: seo
+        transport: stdio
+        command: !!js process.execPath
+        args:
+          - !!js "(process.env.DSH_HOME && process.env.DSH_HOME.trim() !== '' ? process.env.DSH_HOME : (process.env.USERPROFILE || process.env.HOME || '') + '/.dsh') + '/plugins/seo-auditor/server.mjs'"
+        env:
+          ELECTRON_RUN_AS_NODE: '1'
+        failOnStartupError: false
+        toolCallTimeoutMs: 60000
